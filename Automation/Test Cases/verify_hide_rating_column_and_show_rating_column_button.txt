@@ -1,0 +1,12 @@
+*** Settings ***
+Resource  ../Common/tabular_resources.txt
+Force Tags  TC-002
+#Test Teardown  Test Case Teardown
+Suite Setup  Open Browser And Redirect To Url
+Suite Teardown  Close Browser Window
+# Author: Hardik.gosai
+
+*** Test Cases ***
+Verify Hide Rating Column/Show Rating Column button
+    tabular_home_page.Click On Hide Rating Column Button And Verify Rating Column
+    tabular_home_page.Click On Show Rating Column Button And Verify Rating Column

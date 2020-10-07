@@ -1,0 +1,25 @@
+*** Settings ***
+Library  SeleniumLibrary
+Resource  tabular_common_variables.txt
+
+*** Keywords ***
+Open Browser And Redirect To Url
+    Open Browser  about:blank  ${BROWSER}
+    run keyword If  '${BROWSER}'=='chrome'  Maximize Browser Window
+    Go To  ${URL}
+    Wait Until Page Contains Element  ${TabulatorImageLink}
+
+Close Browser Window
+    sleep  3
+    Close Browser
+
+Test Case Teardown
+    Run Keyword If Test Failed    Test Case Catch
+    Run Keyword If Test Passed    Test Case Finally
+
+Test Case Catch
+    ${PageSource} =  get source
+    Log  ${PageSource}
+
+Test Case Finally
+    Log  Test Case Finally

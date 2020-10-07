@@ -1,0 +1,9 @@
+*** Variables ***
+${BROWSER} =  chrome
+${URL} =  http://tabulator.info/
+
+# TC-002
+${TabulatorImageLink} =  xpath=(//img[@alt="Tabulator"])[1]
+${HideRatingColumnButton} =  xpath=//button/span[@class='hide-rating']
+${ShowRatingColumnButton} =  xpath=//button/span[@class='show-rating']
+${TableHeaders} =  xpath=(//div[@class='tabulator-headers']/div)
