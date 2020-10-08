@@ -1,12 +1,33 @@
 *** Settings ***
 Resource  ../Common/tabular_resources.txt
 Force Tags  TC-002
-#Test Teardown  Test Case Teardown
 Suite Setup  Open Browser And Redirect To Url
 Suite Teardown  Close Browser Window
+Test Teardown  Run Keyword If Test Failed  Log Browser State
 # Author: Hardik.gosai
 
 *** Test Cases ***
 Verify Hide Rating Column/Show Rating Column button
-    tabular_home_page.Click On Hide Rating Column Button And Verify Rating Column
-    tabular_home_page.Click On Show Rating Column Button And Verify Rating Column
+    Click On Hide Rating Column Button And Verify Rating Column
+    Click On Show Rating Column Button And Verify Rating Column
+
+*** Keywords ***
+Click On Hide Rating Column Button And Verify Rating Column
+    scroll element into view  ${LastRow}
+    sleep  2
+    click Element  ${HideRatingColumnButton}
+    ${RatingBarAttribute} =    Verify Rating Bar
+    should contain   ${RatingBarAttribute}  ${RatingColumnNotVisible}
+
+Click On Show Rating Column Button And Verify Rating Column
+    scroll element into view    ${LastRow}
+    Click Element  ${ShowRatingColumnButton}
+    sleep  2
+    ${RatingBarAttribute} =    Verify Rating Bar
+    should not contain   ${RatingBarAttribute}  ${RatingColumnNotVisible}
+
+Verify Rating Bar
+    ${RatingBar} =  set variable  ${TableHeaders}\[${RatingColumnIndex}\]
+    wait until page contains element  ${RatingBar}
+    ${RatingBarAttribute} =    get element attribute  ${RatingBar}  style
+    [Return]   ${RatingBarAttribute}

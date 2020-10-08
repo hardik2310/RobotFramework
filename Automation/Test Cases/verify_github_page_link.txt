@@ -1,0 +1,18 @@
+*** Settings ***
+Resource  ../Common/tabular_resources.txt
+Force Tags  TC-005
+Suite Setup  Open Browser And Redirect To Url
+Suite Teardown  Close Browser Window
+Test Teardown  Run Keyword If Test Failed  Log Browser State
+# Author: Hardik.gosai
+
+*** Test Cases ***
+Verify Github page
+    Click On Github Page Link And Verify Git Hub Page
+
+*** Keywords ***
+Click On Github Page Link And Verify Git Hub Page
+    click link  ${GithubPageLink}
+    page should contain element  ${VerifyGithubPage}
+    sleep  2
+    Go To  ${URL}

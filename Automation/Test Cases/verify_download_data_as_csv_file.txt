@@ -1,0 +1,16 @@
+*** Settings ***
+Resource  ../Common/tabular_resources.txt
+Force Tags  TC-004
+Suite Setup  Open Browser And Redirect To Url
+Suite Teardown  Close Browser Window
+Test Teardown  Run Keyword If Test Failed  Log Browser State
+# Author: Hardik.gosai
+
+*** Test Cases ***
+
+
+*** Keywords ***
+Click On Download Data As CSV Button And Verify
+    Scroll Element Into View    ${LastRow}
+    Sleep  2
+    Click Button  ${CSS_DownloadButton}

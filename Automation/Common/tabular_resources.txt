@@ -1,5 +1,6 @@
 *** Settings ***
+Library  SeleniumLibrary
+Library  StringFormat
 Resource  tabular_common_variables.txt
 Resource  tabular_common_labels.txt
 Resource  tabular_common_keywords.txt
-Resource  tabular_home_page.txt

@@ -1,7 +1,3 @@
-*** Settings ***
-Library  SeleniumLibrary
-Resource  tabular_common_variables.txt
-
 *** Keywords ***
 Open Browser And Redirect To Url
     Open Browser  about:blank  ${BROWSER}
@@ -13,13 +9,12 @@ Close Browser Window
     sleep  3
     Close Browser
 
-Test Case Teardown
-    Run Keyword If Test Failed    Test Case Catch
-    Run Keyword If Test Passed    Test Case Finally
+Log Browser State
+    Capture Page Screenshot
+    ${Source} =  get source
+    Log  ${Source}
 
-Test Case Catch
-    ${PageSource} =  get source
-    Log  ${PageSource}
-
-Test Case Finally
-    Log  Test Case Finally
+Get Table Data    [Arguments]  ${Row}  ${Column}
+    ${TableDataLocator} =  format string  ${TableData}  ${Row}  ${Column}
+    ${Data} =    get text  ${TableDataLocator}
+    [Return]   ${Data}
