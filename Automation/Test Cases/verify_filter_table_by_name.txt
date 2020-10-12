@@ -7,20 +7,11 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 # Author: Hardik.gosai
 
 *** Test Cases ***
-Verify Filter In Table
-    Verify Filter In The Table
-
-*** Keywords ***
 Verify Filter In The Table
-    Scroll Element Into View    ${LastRow}
-    Sleep  2
+    Scroll Element Into View    ${TabulatorFooter}
     ${FirstColumnThirdRowValue} =   Get Table Data  3  1
-    Enter Value in Search Box In The Table  ${FirstColumnThirdRowValue}
+    input text  ${FilterBox}  ${FirstColumnThirdRowValue}
+    ${text} =   get value  ${FilterBox}
+    should be equal  ${text}  ${FirstColumnThirdRowValue}
     ${FirstColumnFirstRowValue} =   Get Table Data  1  1
     should be equal  ${FirstColumnThirdRowValue}  ${FirstColumnFirstRowValue}
-
-Enter Value in Search Box In The Table    [Arguments]  ${SearchValue}
-    sleep  2
-    input text  ${CSS_FilterBox}  ${SearchValue}
-    ${text} =   get value  ${CSS_FilterBox}
-    should be equal  ${text}  ${SearchValue}

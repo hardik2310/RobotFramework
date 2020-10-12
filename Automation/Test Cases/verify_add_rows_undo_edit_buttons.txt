@@ -7,25 +7,20 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 # Author: Hardik.gosai
 
 *** Test Cases ***
-Verify Add Row/Undo Edit Column Button
-    Click On Add Row Button And Verify New Row Added
-    Click On Undo Edit Button And Verify New Row Removed
-
-*** Keywords ***
 Click On Add Row Button And Verify New Row Added
-    scroll element into view    ${LastRow}
-    sleep  2
+    scroll element into view    ${TabulatorFooter}
     ${FirstColumnFirstRowValue} =    Get Table Data  1  1
     should not be empty  ${FirstColumnFirstRowValue}
-    click button  ${CSS_AddRowButton}
+    click button  ${AddRowButton}
     ${FirstColumnFirstRowValue} =    Get Table Data  1  1
     should be equal  ${FirstColumnFirstRowValue}    ${SPACE}
 
+
 Click On Undo Edit Button And Verify New Row Removed
-    scroll element into view    ${LastRow}
-    sleep  2
+    scroll element into view    ${TabulatorFooter}
     ${FirstColumnFirstRowValue} =   Get Table Data  1  1
     should be equal  ${FirstColumnFirstRowValue}  ${SPACE}
-    click button  ${CSS_UndoEditButton}
+    click button  ${UndoEditButton}
     ${FirstColumnFirstRowValue} =   Get Table Data  1  1
     should not be empty  ${FirstColumnFirstRowValue}
+

@@ -18,3 +18,4 @@ Get Table Data    [Arguments]  ${Row}  ${Column}
     ${TableDataLocator} =  format string  ${TableData}  ${Row}  ${Column}
     ${Data} =    get text  ${TableDataLocator}
     [Return]   ${Data}
+

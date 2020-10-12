@@ -1,0 +1,32 @@
+*** Settings ***
+Resource  ../Common/tabular_resources.txt
+Force Tags  TC-005
+Suite Setup  Open Browser And Redirect To Url
+Suite Teardown  Close Browser Window
+Test Teardown  Run Keyword If Test Failed  Log Browser State
+# Author: Hardik.gosai
+
+*** Test Cases ***
+Verify Documentation page
+    click link  ${DocumentationPageLink}
+    page should contain  ${DocumentationPageText}
+
+Verify FAQ page
+    click link  ${FAQPageLink}
+    page should contain  ${FAQPageText}
+
+Verify Example page
+    click link  ${ExamplesPageLink}
+    page should contain  ${ExamplePageText}
+
+Verify News page
+    click link  ${NewsPageLink}
+    page should contain  ${NewsPageText}
+
+Verify Community page
+    click link  ${CommunityPageLink}
+    page should contain  ${CommunityPageText}
+
+Verify Github page
+    click link  ${GithubPageLink}
+    page should contain  ${GithubPageText}

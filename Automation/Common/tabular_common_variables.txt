@@ -1,28 +1,35 @@
 *** Variables ***
 # Common
-${BROWSER} =  chrome
-${URL} =  http://tabulator.info/
-${TabulatorImageLink} =  xpath=(//img[@alt="Tabulator"])[1]
-${TableHeaders} =  xpath=(//div[@class='tabulator-headers']/div)
-${LastRow} =   xpath=(//div[@class='tabulator-table']//div[7]/div[@class='tabulator-cell'])[1]
-${TableData} =  xpath=(//div[@class='tabulator-table']//div[{0}]/div[@class='tabulator-cell'])[{1}]
+${BROWSER}  chrome
+${URL}  http://tabulator.info/
+${TabulatorImageLink}  css=h1 img[alt='Tabulator']
+${TableHeaders}  xpath=//div[@class='tabulator-headers']/div
+${TableData}  xpath=//div[@class='tabulator-table']//div[{}]/div[@class='tabulator-cell'][{}]
+${TabulatorFooter}   css=div[class='tabulator-footer']
 
 # TC-002
-${HideRatingColumnButton} =  xpath=//button/span[@class='hide-rating']
-${ShowRatingColumnButton} =  xpath=//button/span[@class='show-rating']
+${HideRatingColumnButton}  css=button span[class='hide-rating']
+${ShowRatingColumnButton}  css=button span[class='show-rating']
 
 # TC-003
-${CSS_AddRowButton} =  css=button[name='add-row']
-${CSS_UndoEditButton} =  css=button[name='undo']
+${AddRowButton}  css=button[name='add-row']
+${UndoEditButton}  css=button[name='undo']
 
 # TC-004
-${CSS_DownloadButton} =  css=button[name='download']
+${DownloadButton}  css=button[name='download']
 
 # TC-005
-${GithubPageLink} =  id=github-link
-${VerifyGithubPage} =  xpath=//a[@href='/olifolkerd/tabulator'][contains(text(),'tabulator')]
+${DocumentationPageLink}  xpath=//li/a[contains(text(),'Documentation')]
+${FAQPageLink}  css=a[href='/faq/']
+${ExamplesPageLink}  xpath=//a[contains(text(),'Examples')]
+${NewsPageLink}  css=a[href='/news/']
+${CommunityPageLink}  css=a[href='/community/']
+${GithubPageLink}  css=a[id='github-link']
 
 # TC-006
-${CSS_FilterBox} =  css=input[name='name']
+${FilterBox}  css=input[name='name']
+
+#TC-007
+
 
 

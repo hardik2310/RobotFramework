@@ -7,10 +7,8 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 # Author: Hardik.gosai
 
 *** Test Cases ***
+#    ${now}  Evaluate    'Table_Data_{dt.day}_{dt.month}_{dt.year}__{dt.hour}_{dt.minute}_{dt.second}.csv'.format(dt=datetime.datetime.now())    modules=datetime
+#    log to console    ${now}
 
-
-*** Keywords ***
-Click On Download Data As CSV Button And Verify
-    Scroll Element Into View    ${LastRow}
-    Sleep  2
-    Click Button  ${CSS_DownloadButton}
+Click On Download Data As CSV Button And Download File
+    Click Button  ${DownloadButton}

@@ -1,6 +1,8 @@
 *** Settings ***
 Library  SeleniumLibrary
 Library  StringFormat
+Library  DateTime
+Library  OperatingSystem
 Resource  tabular_common_variables.txt
 Resource  tabular_common_labels.txt
 Resource  tabular_common_keywords.txt

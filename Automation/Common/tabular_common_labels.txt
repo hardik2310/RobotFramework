@@ -1,5 +1,14 @@
 *** Variables ***
 
-${RatingColumnIndex} =  4
-${RatingColumnNotVisible} =  display: none;
-${DownloadedFileName} =  Tabulator Example Download
+${RatingColumnIndex}  4
+${RatingColumnNotVisible}  display: none;
+${DownloadedFileName}  Tabulator Example Download
+${HideRatingColumnText}  Hide Rating Column
+${ShowRatingColumnText}  Show Rating Column
+${DocumentationPageText}  Upgrade Guide
+${FAQPageText}  Frequently Asked Questions
+${ExamplePageText}  Virtual DOM - Vertical
+${NewsPageText}  Community Ideas Repo
+${CommunityPageText}  Community Guidelines
+${GithubPageText}  Join GitHub today
+${DownloadDirectory}  ../Downloads
