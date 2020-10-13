@@ -9,18 +9,18 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 *** Test Cases ***
 Click On Add Row Button And Verify New Row Added
     scroll element into view    ${TabulatorFooter}
-    ${FirstColumnFirstRowValue} =    Get Table Data  1  1
+    ${FirstColumnFirstRowValue} =    Get Table Data By Column Number And Row Number  1  1
     should not be empty  ${FirstColumnFirstRowValue}
     click button  ${AddRowButton}
-    ${FirstColumnFirstRowValue} =    Get Table Data  1  1
+    ${FirstColumnFirstRowValue} =    Get Table Data By Column Number And Row Number  1  1
     should be equal  ${FirstColumnFirstRowValue}    ${SPACE}
 
 
 Click On Undo Edit Button And Verify New Row Removed
     scroll element into view    ${TabulatorFooter}
-    ${FirstColumnFirstRowValue} =   Get Table Data  1  1
+    ${FirstColumnFirstRowValue} =   Get Table Data By Column Number And Row Number  1  1
     should be equal  ${FirstColumnFirstRowValue}  ${SPACE}
     click button  ${UndoEditButton}
-    ${FirstColumnFirstRowValue} =   Get Table Data  1  1
+    ${FirstColumnFirstRowValue} =   Get Table Data By Column Number And Row Number  1  1
     should not be empty  ${FirstColumnFirstRowValue}
 

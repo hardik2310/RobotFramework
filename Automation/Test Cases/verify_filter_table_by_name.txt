@@ -9,9 +9,9 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 *** Test Cases ***
 Verify Filter In The Table
     Scroll Element Into View    ${TabulatorFooter}
-    ${FirstColumnThirdRowValue} =   Get Table Data  3  1
+    ${FirstColumnThirdRowValue} =   Get Table Data By Column Number And Row Number  3  1
     input text  ${FilterBox}  ${FirstColumnThirdRowValue}
     ${text} =   get value  ${FilterBox}
     should be equal  ${text}  ${FirstColumnThirdRowValue}
-    ${FirstColumnFirstRowValue} =   Get Table Data  1  1
+    ${FirstColumnFirstRowValue} =   Get Table Data By Column Number And Row Number  1  1
     should be equal  ${FirstColumnThirdRowValue}  ${FirstColumnFirstRowValue}

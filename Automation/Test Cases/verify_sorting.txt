@@ -7,4 +7,34 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 # Author: Hardik.gosai
 
 *** Test Cases ***
-#Verify Sorting On Name
+Verify Sorting On Name
+    Soring Alphanumeric Columns Of Table  1  desc
+
+Verify Sorting On Gender
+    Soring Alphanumeric Columns Of Table  3  asc
+
+Verify Sorting On Color
+    Soring Alphanumeric Columns Of Table  5  asc
+
+#Verify Sorting On Date Of Birth
+#    Soring Alphanumeric Columns Of Table  6  desc
+
+*** Keywords ***
+Soring Alphanumeric Columns Of Table  [Arguments]  ${ColumnNumber}  ${SortingMethod}
+    @{SortingMetodList} =   Create List  asc  desc
+    Should Contain  ${SortingMetodList}  ${SortingMethod}
+    ${Column} =  set variable  ${TableHeaders}\[${ColumnNumber}\]
+    ${SortingAttribute} =  get element attribute  ${TableHeaders}\[${ColumnNumber}\]  aria-sort
+    Run Keyword And Return IF  '${SortingAttribute}' == '${SortingMethod}'  log  ALready Sorted to ${SortingMethod}
+    ${ListBeforeShortedData} =  Get Table Data   ${ColumnNumber}
+    sort list    ${ListBeforeShortedData}
+    run keyword if    '${SortingMethod}' == 'desc'  reverse list  ${ListBeforeShortedData}
+    FOR  ${index}  IN RANGE  1  4
+        ${SortingAttribute} =  get element attribute  ${TableHeaders}\[${ColumnNumber}\]  aria-sort
+        Exit For Loop If  '${SortingAttribute}' == '${SortingMethod}'
+        click element  ${Column}
+    END
+    ${shortedData} =  Get Table Data   ${ColumnNumber}
+    should be equal    '${SortingAttribute}'    '${SortingMethod}'
+    should be equal    ${ShortedData}    ${ListBeforeShortedData}
+

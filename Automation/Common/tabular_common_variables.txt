@@ -3,7 +3,8 @@
 ${BROWSER}  chrome
 ${URL}  http://tabulator.info/
 ${TabulatorImageLink}  css=h1 img[alt='Tabulator']
-${TableHeaders}  xpath=//div[@class='tabulator-headers']/div
+${TableHeaders}  xpath=//div[@class='tabulator-col tabulator-sortable']
+${TableVisibleRows}  xpath=//div[@class='tabulator-table']/div
 ${TableData}  xpath=//div[@class='tabulator-table']//div[{}]/div[@class='tabulator-cell'][{}]
 ${TabulatorFooter}   css=div[class='tabulator-footer']
 
@@ -30,6 +31,10 @@ ${GithubPageLink}  css=a[id='github-link']
 ${FilterBox}  css=input[name='name']
 
 #TC-007
-
-
+${PaginationButton}  css=span[class='tabulator-paginator']
+${Pages}  xpath=//span[@class='tabulator-pages']/button
+${FirstButton}  css=${PaginationButton} > button[title='First Page']
+${PrevButton}  css=${PaginationButton} > button[title='Prev Page']
+${NextButton}  css=${PaginationButton} > button[title='Next Page']
+${LastButton}  css=${PaginationButton} > button[title='Last Page']
 

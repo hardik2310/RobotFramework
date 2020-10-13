@@ -1,7 +1,7 @@
 *** Keywords ***
 Open Browser And Redirect To Url
     Open Browser  about:blank  ${BROWSER}
-    run keyword If  '${BROWSER}'=='chrome'  Maximize Browser Window
+    Run Keyword If  '${BROWSER}'=='chrome'  Maximize Browser Window
     Go To  ${URL}
     Wait Until Page Contains Element  ${TabulatorImageLink}
 
@@ -11,11 +11,27 @@ Close Browser Window
 
 Log Browser State
     Capture Page Screenshot
-    ${Source} =  get source
+    ${Source} =  Get Source
     Log  ${Source}
 
-Get Table Data    [Arguments]  ${Row}  ${Column}
-    ${TableDataLocator} =  format string  ${TableData}  ${Row}  ${Column}
-    ${Data} =    get text  ${TableDataLocator}
+Get Table Data By Column Number And Row Number  [Arguments]  ${Row}  ${Column}
+    ${TableDataLocator} =  Format String  ${TableData}  ${Row}  ${Column}
+    ${Data} =    Get Text  ${TableDataLocator}
     [Return]   ${Data}
 
+Get Table Data  [Arguments]  ${ColumnNumber}
+    ${TablePages} =  Get Element Count  ${Pages}
+    @{AllTableData} =  Create List
+
+    FOR  ${Page}  IN RANGE  1  ${TablePages} + 1
+        Click Button    ${Pages}\[${Page}\]
+        ${Rows} =  Get Element Count   ${TableVisibleRows}
+        Read Data from Table  ${Rows}  ${ColumnNumber}  ${AllTableData}
+    END
+    [Return]  ${AllTableData}
+
+Read Data from Table  [Arguments]   ${Rows}  ${ColumnNumber}  ${AllTableData}
+    FOR   ${Row}  IN RANGE   1  ${Rows} + 1
+        ${Data} =    Get Table Data By Column Number And Row Number  ${Row}  ${ColumnNumber}
+        Append To List    ${AllTableData}  ${Data}
+    END
