@@ -7,6 +7,8 @@ ${TableHeaders}  xpath=//div[@class='tabulator-col tabulator-sortable']
 ${TableVisibleRows}  xpath=//div[@class='tabulator-table']/div
 ${TableData}  xpath=//div[@class='tabulator-table']//div[{}]/div[@class='tabulator-cell'][{}]
 ${TabulatorFooter}   css=div[class='tabulator-footer']
+${PaginationButton}  css=span[class='tabulator-paginator']
+${Pages}  xpath=//span[@class='tabulator-pages']/button
 
 # TC-002
 ${HideRatingColumnButton}  css=button span[class='hide-rating']
@@ -30,9 +32,7 @@ ${GithubPageLink}  css=a[id='github-link']
 # TC-006
 ${FilterBox}  css=input[name='name']
 
-#TC-007
-${PaginationButton}  css=span[class='tabulator-paginator']
-${Pages}  xpath=//span[@class='tabulator-pages']/button
+#TC-008
 ${FirstButton}  css=${PaginationButton} > button[title='First Page']
 ${PrevButton}  css=${PaginationButton} > button[title='Prev Page']
 ${NextButton}  css=${PaginationButton} > button[title='Next Page']
