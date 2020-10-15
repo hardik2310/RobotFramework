@@ -1,6 +1,6 @@
 *** Settings ***
 Resource  ../Common/tabular_resources.txt
-Force Tags  TC-007
+#Force Tags  TC-007
 Suite Setup  Open Browser And Redirect To Url
 Suite Teardown  Close Browser Window
 Test Teardown  Run Keyword If Test Failed  Log Browser State
@@ -8,34 +8,37 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 
 *** Test Cases ***
 Verify Sorting On Name
-    Soring Alphanumeric Columns Of Table  1  desc
-#
+    Sorting Columns Of Table  1  desc
+
+Verify Sorting On Task Progress
+    Sorting Columns Of Table  2  desc
+
 Verify Sorting On Gender
-    Soring Alphanumeric Columns Of Table  3  asc
+    Sorting Columns Of Table  3  asc
 
 Verify Sorting On Color
-    Soring Alphanumeric Columns Of Table  5  asc
+    Sorting Columns Of Table  5  asc
 
 Verify Sorting On Date Of Birth
-    Soring Alphanumeric Columns Of Table  6  desc
+    Sorting Columns Of Table  6  desc
+
 
 *** Keywords ***
-Soring Alphanumeric Columns Of Table  [Arguments]  ${ColumnNumber}  ${SortingMethod}
+Sorting Columns Of Table  [Arguments]  ${ColumnNumber}  ${SortingMethod}
     @{SortingMethodList} =   Create List  asc  desc
     Should Contain  ${SortingMethodList}  ${SortingMethod}
     ${Column} =  set variable  ${TableHeaders}\[${ColumnNumber}\]
     ${SortingAttribute} =  get element attribute  ${TableHeaders}\[${ColumnNumber}\]  aria-sort
     Run Keyword And Return IF  '${SortingAttribute}' == '${SortingMethod}'  Log  ALready sorted to ${SortingMethod}
-    ${ListBeforeShortedData} =  Get Table Data   ${ColumnNumber}
-    Run Keyword If  ${ColumnNumber} == 6  Sort Dates In List  ${ListBeforeShortedData}
-    ...  ELSE  Sort List  ${ListBeforeShortedData}
-    Run Keyword If  '${SortingMethod}' == 'desc'  reverse list  ${ListBeforeShortedData}
+    ${TableData} =  Get Table Data From Table Pages   ${ColumnNumber}
+    Run Keyword If  ${ColumnNumber} == 6  Sort Dates In List  ${TableData}
+    ...  ELSE  Sort List  ${TableData}
+    Run Keyword If  '${SortingMethod}' == 'desc'  reverse list  ${TableData}
     FOR  ${index}  IN RANGE  1  4
         ${SortingAttribute} =  Get Element Attribute  ${TableHeaders}\[${ColumnNumber}\]  aria-sort
         Exit For Loop If  '${SortingAttribute}' == '${SortingMethod}'
         Click Element  ${Column}
     END
-    ${SortedData} =  Get Table Data   ${ColumnNumber}
-    should be equal  '${SortingAttribute}'    '${SortingMethod}'
-    should be equal  ${SortedData}    ${ListBeforeShortedData}
-
+    ${SortedTableData} =  Get Table Data From Table Pages   ${ColumnNumber}
+    should be equal  '${SortingAttribute}'  '${SortingMethod}'
+    should be equal  ${SortedTableData}  ${TableData}

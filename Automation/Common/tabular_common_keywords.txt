@@ -19,7 +19,7 @@ Get Table Data By Column Number And Row Number  [Arguments]  ${Row}  ${Column}
     ${Data} =    Get Text  ${TableDataLocator}
     [Return]   ${Data}
 
-Get Table Data  [Arguments]  ${ColumnNumber}
+Get Table Data From Table Pages  [Arguments]  ${ColumnNumber}
     ${TablePages} =  Get Element Count  ${Pages}
     @{AllTableData} =  Create List
 
@@ -32,6 +32,15 @@ Get Table Data  [Arguments]  ${ColumnNumber}
 
 Read Data from Table  [Arguments]   ${Rows}  ${ColumnNumber}  ${AllTableData}
     FOR   ${Row}  IN RANGE   1  ${Rows} + 1
-        ${Data} =    Get Table Data By Column Number And Row Number  ${Row}  ${ColumnNumber}
+        ${Data} =  Run Keyword If  ${ColumnNumber}==2  Get Value Of Task Progress Column In Table  ${Row}
+        ...  ELSE  Get Table Data By Column Number And Row Number  ${Row}  ${ColumnNumber}
         Append To List    ${AllTableData}  ${Data}
     END
+
+Get Value Of Task Progress Column In Table    [Arguments]    ${Row}
+    ${TableCell} =  Format String    ${TaskProgressColumnData}    ${Row}
+    ${AttributeValue} =  Get Element Attribute  ${TableCell}  style
+    @{Data} =  Split String    ${AttributeValue}    ;
+    @{Data} =  Split String    ${Data[2]}    :
+    @{Data} =  Split String    ${Data[1]}    %
+    [Return]    ${${Data[0]}}

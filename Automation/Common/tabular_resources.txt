@@ -1,8 +1,8 @@
 *** Settings ***
 Library  SeleniumLibrary
-Library  StringFormat
 Library  Collections
-Library   utils.py
+Library  String
+Library  utils.py
 Resource  tabular_common_variables.txt
 Resource  tabular_common_labels.txt
 Resource  tabular_common_keywords.txt
