@@ -1,35 +1,25 @@
 *** Settings ***
 Resource  ../Common/tabular_resources.txt
 Force Tags  TC-008
-#Suite Setup  Open Browser And Redirect To Url
-#Suite Teardown  Close Browser Window
-#Test Teardown  Run Keyword If Test Failed  Log Browser State
+Suite Setup  Open Browser And Redirect To Url
+Suite Teardown  Close Browser Window
+Test Teardown  Run Keyword If Test Failed  Log Browser State
 # Author: Hardik.gosai
 
 *** Test Cases ***
 Verify Pagination Of Table
-#    ${TablePages} =  Get Element Count  ${Pages}
-#    FOR  ${Page}  IN RANGE  1  ${TablePages} + 1
-#        Click Button    ${Pages}\[${Page}\]
-#        Run Keyword If  ${Page}==1  Run Keywords
-#        ...  AND  Element Should Be Disabled  ${FirstButton}
-#        ...  AND  Element Should Be Disabled  ${PrevButton}
-##        ...  Else If  ${Page}==${TablePages}  Run Keywords
-##        ...  AND  Element Should Be Disabled  ${NextButton}
-##        ...  AND  Element Should Be Disabled  ${LastButton}
-##        ...  Else  Run Keywords
-##        ...  AND  Element Should Be Enabled   ${FirstButton}
-##        ...  AND  Element Should Be Enabled   ${PrevButton}
-##        ...  AND  Element Should Be Enabled   ${NextButton}
-##        ...  AND  Element Should Be Enabled   ${LastButton}
-#    END
-
-    FOR  ${i}  IN RANGE  1  5
-        ${a} =   set variable    20
-        run keyword if  ${a}==10  run keywords
-        ...   AND log to console  ${a}
-        ...   AND    log to console  abcd
-        ...  ELSE IF  ${a}==20  run keywords
-        ...   AND log to console  ${a}
-        ...   AND   log to console  defg
+    ${TablePages} =  Get Element Count  ${Pages}
+    FOR  ${Page}  IN RANGE  1  ${TablePages} + 1
+        Click Button    ${Pages}\[${Page}\]
+        Run Keyword IF  ${Page}==1  Run Keywords
+        ...  Element Should Be Disabled  ${FirstButton}
+        ...  AND  Element Should Be Disabled  ${PrevButton}
+        ...  ELSE IF  ${Page}==${TablePages}  Run Keywords
+        ...  Element Should Be Disabled  ${NextButton}
+        ...  AND  Element Should Be Disabled  ${LastButton}
+        ...  ELSE  Run Keywords
+        ...  Element Should Be Enabled   ${FirstButton}
+        ...  AND  Element Should Be Enabled   ${PrevButton}
+        ...  AND  Element Should Be Enabled   ${NextButton}
+        ...  AND  Element Should Be Enabled   ${LastButton}
     END

@@ -8,19 +8,19 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 
 *** Test Cases ***
 Click On Add Row Button And Verify New Row Added
-    scroll element into view    ${TabulatorFooter}
+    Scroll Element Into View    ${TabulatorFooter}
     ${FirstColumnFirstRowValue} =    Get Table Data By Column Number And Row Number  1  1
-    should not be empty  ${FirstColumnFirstRowValue}
-    click button  ${AddRowButton}
+    Should Not Be Empty  ${FirstColumnFirstRowValue}
+    Click Button  ${AddRowButton}
     ${FirstColumnFirstRowValue} =    Get Table Data By Column Number And Row Number  1  1
-    should be equal  ${FirstColumnFirstRowValue}    ${SPACE}
+    Should Be Equal  ${FirstColumnFirstRowValue}    ${SPACE}
 
 
 Click On Undo Edit Button And Verify New Row Removed
-    scroll element into view    ${TabulatorFooter}
+    Scroll Element Into View    ${TabulatorFooter}
     ${FirstColumnFirstRowValue} =   Get Table Data By Column Number And Row Number  1  1
-    should be equal  ${FirstColumnFirstRowValue}  ${SPACE}
-    click button  ${UndoEditButton}
+    Should Be Equal  ${FirstColumnFirstRowValue}  ${SPACE}
+    Click Button  ${UndoEditButton}
     ${FirstColumnFirstRowValue} =   Get Table Data By Column Number And Row Number  1  1
-    should not be empty  ${FirstColumnFirstRowValue}
+    Should Not Be Empty  ${FirstColumnFirstRowValue}
 

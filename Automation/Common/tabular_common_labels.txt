@@ -1,6 +1,4 @@
 *** Variables ***
-
-${RatingColumnIndex}  4
 ${RatingColumnNotVisible}  display: none;
 ${DownloadedFileName}  Tabulator Example Download
 ${HideRatingColumnText}  Hide Rating Column

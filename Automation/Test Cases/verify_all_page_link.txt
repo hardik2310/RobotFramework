@@ -8,25 +8,25 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 
 *** Test Cases ***
 Verify Documentation page
-    click link  ${DocumentationPageLink}
-    page should contain  ${DocumentationPageText}
+    Click Link  ${DocumentationPageLink}
+    Page Should Contain  ${DocumentationPageText}
 
 Verify FAQ page
-    click link  ${FAQPageLink}
-    page should contain  ${FAQPageText}
+    Click Link  ${FAQPageLink}
+    Page Should Contain  ${FAQPageText}
 
 Verify Example page
-    click link  ${ExamplesPageLink}
-    page should contain  ${ExamplePageText}
+    Click Link  ${ExamplesPageLink}
+    Page Should Contain  ${ExamplePageText}
 
 Verify News page
-    click link  ${NewsPageLink}
-    page should contain  ${NewsPageText}
+    Click Link  ${NewsPageLink}
+    Page Should Contain  ${NewsPageText}
 
 Verify Community page
-    click link  ${CommunityPageLink}
-    page should contain  ${CommunityPageText}
+    Click Link  ${CommunityPageLink}
+    Page Should Contain  ${CommunityPageText}
 
 Verify Github page
-    click link  ${GithubPageLink}
-    page should contain  ${GithubPageText}
+    Click Link  ${GithubPageLink}
+    Page Should Contain  ${GithubPageText}

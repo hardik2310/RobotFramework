@@ -8,23 +8,22 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 
 *** Test Cases ***
 Click On Hide Rating Column Button And Verify Rating Column
-    scroll element into view  ${TabulatorFooter}
-    wait until page contains   ${HideRatingColumnText}
-    click Element  ${HideRatingColumnButton}
+    Scroll Element Into View  ${TabulatorFooter}
+    Wait Until Page Contains   ${HideRatingColumnText}
+    Click Element  ${HideRatingColumnButton}
     ${RatingBarAttribute} =    Verify Rating Bar
-    should contain   ${RatingBarAttribute}  ${RatingColumnNotVisible}
+    Should Contain   ${RatingBarAttribute}  ${RatingColumnNotVisible}
 
 Click On Show Rating Column Button And Verify Rating Column
-    scroll element into view    ${TabulatorFooter}
-    wait until page contains   ${ShowRatingColumnText}
+    Scroll Element Into View    ${TabulatorFooter}
+    Wait Until Page Contains   ${ShowRatingColumnText}
     Click Element  ${ShowRatingColumnButton}
     ${RatingBarAttribute} =    Verify Rating Bar
-    should not contain   ${RatingBarAttribute}  ${RatingColumnNotVisible}
+    Should Not Contain   ${RatingBarAttribute}  ${RatingColumnNotVisible}
 
 *** Keywords ***
 Verify Rating Bar
-    ${RatingBar1} =  set variable  ${TableHeaders}
-    ${RatingBar} =  set variable  ${TableHeaders}\[${RatingColumnIndex}\]
-    wait until page contains element  ${RatingBar}
-    ${RatingBarAttribute} =    get element attribute  ${RatingBar}  style
+    ${RatingBar} =  Set Variable  ${TableHeaders}\[${4}\]
+    Wait Until Page Contains Element  ${RatingBar}
+    ${RatingBarAttribute} =  Get Element Attribute  ${RatingBar}  style
     [Return]   ${RatingBarAttribute}

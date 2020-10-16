@@ -4,15 +4,14 @@ ${BROWSER}  chrome
 ${URL}  http://tabulator.info/
 ${TabulatorImageLink}  css=h1 img[alt='Tabulator']
 ${TableHeaders}  xpath=//div[@class='tabulator-col tabulator-sortable']
-${TableVisibleRows}  xpath=//div[@class='tabulator-table']/div
-${TableData}  xpath=//div[@class='tabulator-table']//div[{}]/div[@class='tabulator-cell'][{}]
-${TabulatorFooter}   css=div[class='tabulator-footer']
-${PaginationButton}  css=span[class='tabulator-paginator']
+${TableVisibleRows}  css=div.tabulator-table > div
+${TableData}  css=div.tabulator-table div:nth-child({}) > div.tabulator-cell:nth-child({})
+${TabulatorFooter}   css=div.tabulator-footer
 ${Pages}  xpath=//span[@class='tabulator-pages']/button
 
 # TC-002
-${HideRatingColumnButton}  css=button span[class='hide-rating']
-${ShowRatingColumnButton}  css=button span[class='show-rating']
+${HideRatingColumnButton}  css=button > span.hide-rating
+${ShowRatingColumnButton}  css=button > span.show-rating
 
 # TC-003
 ${AddRowButton}  css=button[name='add-row']
@@ -34,10 +33,13 @@ ${FilterBox}  css=input[name='name']
 
 #TC_007
 ${TaskProgressColumnData}  css=div.tabulator-tableHolder > div > div:nth-child({}) > div:nth-child(2) > div:nth-child(3)
+${FilledRatingBar} =  css=div.tabulator-tableHolder > div > div:nth-child({}) > div:nth-child(4) > span > svg > polygon[fill='#FFEA00']
+${DriverColumn} =  css=div.tabulator-tableHolder > div > div:nth-child({}) > div:nth-child(7) > svg > path
 
 #TC-008
-${FirstButton}  css=${PaginationButton} > button[title='First Page']
-${PrevButton}  css=${PaginationButton} > button[title='Prev Page']
-${NextButton}  css=${PaginationButton} > button[title='Next Page']
-${LastButton}  css=${PaginationButton} > button[title='Last Page']
+${PaginationButton}  css=span.tabulator-paginator
+${FirstButton}  ${PaginationButton} > button[title='First Page']
+${PrevButton}  ${PaginationButton} > button[title='Prev Page']
+${NextButton}  ${PaginationButton} > button[title='Next Page']
+${LastButton}  ${PaginationButton} > button[title='Last Page']
 

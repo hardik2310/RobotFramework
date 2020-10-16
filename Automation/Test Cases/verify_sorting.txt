@@ -16,29 +16,35 @@ Verify Sorting On Task Progress
 Verify Sorting On Gender
     Sorting Columns Of Table  3  asc
 
+Verify Sorting On Rating Bar
+    Sorting Columns Of Table  4  desc
+
 Verify Sorting On Color
     Sorting Columns Of Table  5  asc
 
 Verify Sorting On Date Of Birth
     Sorting Columns Of Table  6  desc
 
+Verify Sorting On Driver
+    Sorting Columns Of Table  7  desc
+
 
 *** Keywords ***
 Sorting Columns Of Table  [Arguments]  ${ColumnNumber}  ${SortingMethod}
     @{SortingMethodList} =   Create List  asc  desc
     Should Contain  ${SortingMethodList}  ${SortingMethod}
-    ${Column} =  set variable  ${TableHeaders}\[${ColumnNumber}\]
-    ${SortingAttribute} =  get element attribute  ${TableHeaders}\[${ColumnNumber}\]  aria-sort
+    ${SortingAttribute} =  Get Element Attribute  ${TableHeaders}\[${ColumnNumber}\]  aria-sort
     Run Keyword And Return IF  '${SortingAttribute}' == '${SortingMethod}'  Log  ALready sorted to ${SortingMethod}
     ${TableData} =  Get Table Data From Table Pages   ${ColumnNumber}
-    Run Keyword If  ${ColumnNumber} == 6  Sort Dates In List  ${TableData}
+    Run Keyword IF  ${ColumnNumber} == 6  Sort Dates In List  ${TableData}
     ...  ELSE  Sort List  ${TableData}
-    Run Keyword If  '${SortingMethod}' == 'desc'  reverse list  ${TableData}
+    Run Keyword IF  '${SortingMethod}' == 'desc'  Reverse List  ${TableData}
+    ${Column} =  Set Variable  ${TableHeaders}\[${ColumnNumber}\]
     FOR  ${index}  IN RANGE  1  4
         ${SortingAttribute} =  Get Element Attribute  ${TableHeaders}\[${ColumnNumber}\]  aria-sort
         Exit For Loop If  '${SortingAttribute}' == '${SortingMethod}'
         Click Element  ${Column}
     END
     ${SortedTableData} =  Get Table Data From Table Pages   ${ColumnNumber}
-    should be equal  '${SortingAttribute}'  '${SortingMethod}'
-    should be equal  ${SortedTableData}  ${TableData}
+    Should Be Equal  '${SortingAttribute}'  '${SortingMethod}'
+    Should Be Equal  ${SortedTableData}  ${TableData}
