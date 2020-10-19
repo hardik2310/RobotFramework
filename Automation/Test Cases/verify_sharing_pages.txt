@@ -1,0 +1,32 @@
+*** Settings ***
+Resource  ../Common/tabular_resources.txt
+Force Tags  TC-009
+Suite Setup  Open Browser And Redirect To Url
+Suite Teardown  Close Browser Window
+Test Teardown  Run Keyword If Test Failed  Log Browser State
+# Author: Hardik.gosai
+
+*** Test Cases ***
+Verify Facebook Page
+    Click Link  ${FacebookPageLink}
+    ${OpenedWindows}  Get Window Titles
+    Select Window  ${OpenedWindows[1]}
+    Wait Until Page Contains  ${FacebookLoginPageText}
+    Close Window
+    Select Window  title=${OpenedWindows[0]}
+
+Verify Twitter Page
+    Click Link  ${TwitterPageLink}
+    ${OpenedWindows}  Get Window Titles
+    Select Window  ${OpenedWindows[1]}
+    Wait Until Page Contains  ${TwitterLoginPageText}
+    Close Window
+    Select Window  title=${OpenedWindows[0]}
+
+Verify LInkedIn Page
+    Click Link  ${LinkedInPageLink}
+    ${OpenedWindows}  Get Window Titles
+    Select Window  ${OpenedWindows[1]}
+    Wait Until Page Contains Element  ${LinkedInLoginPage}
+    Close Window
+    Select Window  title=${OpenedWindows[0]}

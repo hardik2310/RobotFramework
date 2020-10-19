@@ -43,3 +43,16 @@ ${PrevButton}  ${PaginationButton} > button[title='Prev Page']
 ${NextButton}  ${PaginationButton} > button[title='Next Page']
 ${LastButton}  ${PaginationButton} > button[title='Last Page']
 
+#TC-009
+${FacebookPageLink} =  css=a[data-type='facebook']
+${TwitterPageLink} =  css=a[data-type='twitter']
+${LinkedInPageLink} =  css=a[data-type='linkedin']
+${LinkedInLoginPage} =  css=div.header__logo > li-icon[type='linkedin-logo']
+
+#TC-010
+${FiltersFeatureLink} =  css=i[class='fas fa-filter']
+${FieldDropDown} =  css=select#filter-field
+${TypeDropDown} =  css=select#filter-type
+${FilterValueInput} =  css=input#filter-value
+${ClearFilterButton} =  css=button#filter-clear
+

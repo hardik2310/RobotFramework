@@ -1,0 +1,96 @@
+*** Settings ***
+Resource  ../Common/tabular_resources.txt
+Force Tags  TC-010
+Suite Setup  Open Browser And Redirect To Url
+Suite Teardown  Close Browser Window
+Test Teardown  Run Keyword If Test Failed  Log Browser State
+# Author: Hardik.gosai
+
+*** Test Cases ***
+Verify Filter On Name
+    Click Element  ${FiltersFeatureLink}
+    Wait Until Page Contains  ${FilteringDataPageText}
+    Select From List By Value  ${FieldDropDown}  name
+    Select From List By Value  ${TypeDropDown}  like
+    ${InputValue} =  Set Variable  Mary
+    Input Text  ${FilterValueInput}  ${InputValue}
+    @{TableData} =  Create List
+    Read Data From Table  1   ${TableData}
+    FOR  ${TableValue}  IN  @{TableData}
+        Should Contain  ${TableValue}   ${InputValue}
+    END
+    Click Button  ${ClearFilterButton}
+
+Verify Filter On Progress
+    Select From List By Value  ${FieldDropDown}  progress
+    Select From List By Value  ${TypeDropDown}  <
+    ${InputValue} =  Set Variable  50
+    Input Text  ${FilterValueInput}  ${InputValue}
+    @{TableData} =  Create List
+    Read Data From Table  2   ${TableData}
+    FOR  ${TableValue}  IN  @{TableData}
+        Should Be True   ${TableValue} < ${InputValue}
+    END
+    Click Button  ${ClearFilterButton}
+
+Verify Filter On Gender
+    Select From List By Value  ${FieldDropDown}  gender
+    Select From List By Value  ${TypeDropDown}  =
+    ${InputValue} =  Set Variable  male
+    Input Text  ${FilterValueInput}  ${InputValue}
+    @{TableData} =  Create List
+    Read Data From Table  3   ${TableData}
+    FOR  ${TableValue}  IN  @{TableData}
+        Should Be Equal  ${TableValue}   ${InputValue}
+    END
+    Click Button  ${ClearFilterButton}
+
+Verify Filter On Rating
+    Select From List By Value  ${FieldDropDown}  rating
+    Select From List By Value  ${TypeDropDown}  <=
+    ${InputValue} =  Set Variable  3
+    Input Text  ${FilterValueInput}  ${InputValue}
+    @{TableData} =  Create List
+    Read Data From Table  4   ${TableData}
+    FOR  ${TableValue}  IN  @{TableData}
+        Should Be True   ${TableValue} <= ${InputValue}
+    END
+    Click Button  ${ClearFilterButton}
+
+Verify Filter On Favorite Color
+    Select From List By Value  ${FieldDropDown}  col
+    Select From List By Value  ${TypeDropDown}  !=
+    ${InputValue} =  Set Variable  red
+    Input Text  ${FilterValueInput}  ${InputValue}
+    @{TableData} =  Create List
+    Read Data From Table  5   ${TableData}
+    FOR  ${TableValue}  IN  @{TableData}
+        Should Be True   '${TableValue}' != '${InputValue}'
+    END
+    Click Button  ${ClearFilterButton}
+
+Verify Filter On Date Of Birth
+    Select From List By Value  ${FieldDropDown}  dob
+    Select From List By Value  ${TypeDropDown}  =
+    ${InputValue} =  Set Variable  14/04/1984
+    Input Text  ${FilterValueInput}  ${InputValue}
+    @{TableData} =  Create List
+    Read Data From Table  6   ${TableData}
+    FOR  ${TableValue}  IN  @{TableData}
+        Should Be Equal  ${TableValue}  ${InputValue}
+    END
+    Click Button  ${ClearFilterButton}
+
+Verify Filter On Driver And Rating Less Than 3
+    Select From List By Value  ${FieldDropDown}  function
+    @{TableDataForRating} =  Create List
+    Read Data From Table  4  ${TableDataForRating}
+    FOR  ${TableValue}  IN  @{TableDataForRating}
+        Should Be True  ${TableValue} < 3
+    END
+    @{TableDataForDriver} =  Create List
+    Read Data From Table  7  ${TableDataForDriver}
+    FOR  ${TableValue}  IN  @{TableDataForDriver}
+        Should Be True  ${TableValue}
+    END
+    Click Button  ${ClearFilterButton}

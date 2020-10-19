@@ -25,12 +25,12 @@ Get Table Data From Table Pages  [Arguments]  ${ColumnNumber}
 
     FOR  ${Page}  IN RANGE  1  ${TablePages} + 1
         Click Button    ${Pages}\[${Page}\]
-        ${Rows} =  Get Element Count   ${TableVisibleRows}
-        Read Data From Table  ${Rows}  ${ColumnNumber}  ${AllTableData}
+        Read Data From Table  ${ColumnNumber}  ${AllTableData}
     END
     [Return]  ${AllTableData}
 
-Read Data From Table  [Arguments]   ${Rows}  ${ColumnNumber}  ${AllTableData}
+Read Data From Table  [Arguments]  ${ColumnNumber}  ${AllTableData}
+    ${Rows} =  Get Element Count   ${TableVisibleRows}
     FOR   ${Row}  IN RANGE   1  ${Rows} + 1
         ${Data} =  Run Keyword IF  ${ColumnNumber}==2  Get Value Of Task Progress Column In Table  ${Row}
         ...  ELSE IF  ${ColumnNumber}==4  Get Value Of Rating Bar Column In Table  ${Row}
