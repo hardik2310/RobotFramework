@@ -1,0 +1,23 @@
+*** Settings ***
+Resource  ../Common/tabular_resources.txt
+Force Tags  TC-011
+Suite Setup  Open Browser And Redirect To Url
+Suite Teardown  Close Browser Window
+Test Teardown  Run Keyword If Test Failed  Log Browser State
+# Author: Hardik.gosai
+
+*** Test Cases ***
+Verify Nested Data
+    Click Element  ${NestedDataFeaturePageLink}
+    Wait Until Page Contains  ${NestedDataPageText}
+    @{TableDataBeforeCollapse} =  Create List
+    Read Data From Table  1   ${TableDataBeforeCollapse}
+    ${FirstRow} =   Format String  ${ExpandCollapseCotroller}  Oli Bob
+    Click Element  ${FirstRow}
+    @{TableDataAfterCollapse} =  Create List
+    Read Data From Table  1   ${TableDataAfterCollapse}
+    Should Not Be Equal  ${TableDataBeforeCollapse}  ${TableDataAfterCollapse}
+    Click Element  ${FirstRow}
+    @{TableDataAfterExpand} =  Create List
+    Read Data From Table  1   ${TableDataAfterExpand}
+    Should Be Equal  ${TableDataBeforeCollapse}  ${TableDataAfterExpand}

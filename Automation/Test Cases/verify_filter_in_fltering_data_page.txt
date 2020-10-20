@@ -8,7 +8,7 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 
 *** Test Cases ***
 Verify Filter On Name
-    Click Element  ${FiltersFeatureLink}
+    Click Element  ${FiltersFeaturePageLink}
     Wait Until Page Contains  ${FilteringDataPageText}
     Select From List By Value  ${FieldDropDown}  name
     Select From List By Value  ${TypeDropDown}  like

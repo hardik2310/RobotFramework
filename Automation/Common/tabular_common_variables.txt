@@ -50,9 +50,13 @@ ${LinkedInPageLink} =  css=a[data-type='linkedin']
 ${LinkedInLoginPage} =  css=div.header__logo > li-icon[type='linkedin-logo']
 
 #TC-010
-${FiltersFeatureLink} =  css=i[class='fas fa-filter']
+${FiltersFeaturePageLink} =  css=i[class='fas fa-filter']
 ${FieldDropDown} =  css=select#filter-field
 ${TypeDropDown} =  css=select#filter-type
 ${FilterValueInput} =  css=input#filter-value
 ${ClearFilterButton} =  css=button#filter-clear
+
+#TC-011
+${NestedDataFeaturePageLink} =  css=i[class='fas fa-database']
+${ExpandCollapseCotroller} =  xpath=//div[contains(text(),'{}')]/div[@class='tabulator-data-tree-control']/div
 

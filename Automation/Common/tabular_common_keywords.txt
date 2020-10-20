@@ -15,8 +15,8 @@ Log Browser State
     Log  ${Source}
 
 Get Table Data By Column Number And Row Number  [Arguments]  ${Row}  ${Column}
-    ${TableDataLocator} =  Format String  ${TableData}  ${Row}  ${Column}
-    ${Data} =    Get Text  ${TableDataLocator}
+    ${TableCell} =  Format String  ${TableData}  ${Row}  ${Column}
+    ${Data} =    Get Text  ${TableCell}
     [Return]   ${Data}
 
 Get Table Data From Table Pages  [Arguments]  ${ColumnNumber}
