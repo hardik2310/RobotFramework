@@ -1,6 +1,6 @@
 *** Variables ***
 # Common
-${BROWSER}  chrome
+${BROWSER}  firefox
 ${URL}  http://tabulator.info/
 ${TabulatorImageLink}  css=h1 img[alt='Tabulator']
 ${TableHeaders}  xpath=//div[@class='tabulator-col tabulator-sortable']
@@ -44,19 +44,24 @@ ${NextButton}  ${PaginationButton} > button[title='Next Page']
 ${LastButton}  ${PaginationButton} > button[title='Last Page']
 
 #TC-009
-${FacebookPageLink} =  css=a[data-type='facebook']
-${TwitterPageLink} =  css=a[data-type='twitter']
-${LinkedInPageLink} =  css=a[data-type='linkedin']
-${LinkedInLoginPage} =  css=div.header__logo > li-icon[type='linkedin-logo']
+${FacebookPageLink}  css=a[data-type='facebook']
+${TwitterPageLink}  css=a[data-type='twitter']
+${LinkedInPageLink}  css=a[data-type='linkedin']
+${LinkedInLoginPage}  css=div.header__logo > li-icon[type='linkedin-logo']
 
 #TC-010
-${FiltersFeaturePageLink} =  css=i[class='fas fa-filter']
-${FieldDropDown} =  css=select#filter-field
-${TypeDropDown} =  css=select#filter-type
-${FilterValueInput} =  css=input#filter-value
-${ClearFilterButton} =  css=button#filter-clear
+${FiltersFeaturePageLink}  css=i[class='fas fa-filter']
+${FieldDropDown}  css=select#filter-field
+${TypeDropDown}  css=select#filter-type
+${FilterValueInput}  css=input#filter-value
+${ClearFilterButton}  css=button#filter-clear
 
 #TC-011
-${NestedDataFeaturePageLink} =  css=i[class='fas fa-database']
-${ExpandCollapseCotroller} =  xpath=//div[contains(text(),'{}')]/div[@class='tabulator-data-tree-control']/div
+${NestedDataFeaturePageLink}  css=i[class='fas fa-database']
+${ExpandCollapseCotroller}  xpath=//div[contains(text(),'{}')]/div[@class='tabulator-data-tree-control']/div
+
+#TC-012
+${ColumnCalculationPageLink}  css=i[class='fas fa-calculator']
+${TableFooter}  css= div.tabulator-footer
+${ColumnSum}  ${TableFooter} > div > div > div:nth-child({})
 

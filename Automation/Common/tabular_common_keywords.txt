@@ -1,13 +1,19 @@
+*** Settings ***
+Library  SeleniumLibrary
+
 *** Keywords ***
 Open Browser And Redirect To Url
-    Open Browser  about:blank  ${BROWSER}
-    Run Keyword IF  '${BROWSER}'=='chrome'  Maximize Browser Window
+    ${DownloadDirectory} =  Set Variable  ${CURDIR}${/}..${/}Downloads
+    ${BrowserProfile} =  Create Profile  ${DownloadDirectory}  ${BROWSER}
+    Open Browser  url=about:blank  browser=${BROWSER}  ff_profile_dir=${BrowserProfile}
+    Maximize Browser Window
     Go To  ${URL}
     Wait Until Page Contains Element  ${TabulatorImageLink}
 
+
 Close Browser Window
     Sleep  3
-    Close Browser
+    Close All Browsers
 
 Log Browser State
     Capture Page Screenshot
@@ -29,12 +35,12 @@ Get Table Data From Table Pages  [Arguments]  ${ColumnNumber}
     END
     [Return]  ${AllTableData}
 
-Read Data From Table  [Arguments]  ${ColumnNumber}  ${AllTableData}
+Read Data From Table  [Arguments]  ${ColumnNumber}  ${AllTableData}  ${AlphanumericValue}=false
     ${Rows} =  Get Element Count   ${TableVisibleRows}
     FOR   ${Row}  IN RANGE   1  ${Rows} + 1
-        ${Data} =  Run Keyword IF  ${ColumnNumber}==2  Get Value Of Task Progress Column In Table  ${Row}
-        ...  ELSE IF  ${ColumnNumber}==4  Get Value Of Rating Bar Column In Table  ${Row}
-        ...  ELSE IF  ${ColumnNumber}==7  Get Value Of Driver Column In Table  ${Row}
+        ${Data} =  Run Keyword IF  ${ColumnNumber}==2 and '${AlphanumericValue}'=='false'  Get Value Of Task Progress Column In Table  ${Row}
+        ...  ELSE IF  ${ColumnNumber}==4 and '${AlphanumericValue}'=='false'  Get Value Of Rating Bar Column In Table  ${Row}
+        ...  ELSE IF  ${ColumnNumber}==7 and '${AlphanumericValue}'=='false'  Get Value Of Driver Column In Table  ${Row}
         ...  ELSE  Get Table Data By Column Number And Row Number  ${Row}  ${ColumnNumber}
         Append To List    ${AllTableData}  ${Data}
     END

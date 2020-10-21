@@ -11,4 +11,6 @@ Test Teardown  Run Keyword If Test Failed  Log Browser State
 #    log to console    ${now}
 
 Click On Download Data As CSV Button And Download File
+    Wait Until Page Contains Element  ${DownloadButton}
     Click Button  ${DownloadButton}
+

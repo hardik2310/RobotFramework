@@ -1,0 +1,40 @@
+*** Settings ***
+Resource  ../Common/tabular_resources.txt
+Force Tags  TC-012
+Suite Setup  Open Browser And Redirect To Url
+Suite Teardown  Close Browser Window
+Test Teardown  Run Keyword If Test Failed  Log Browser State
+# Author: Hardik.gosai
+
+*** Variables ***
+${ActualSum} =  0
+@{DataList}
+
+*** Test Cases ***
+Verify Sum Of The Progress
+    Click Element  ${ColumnCalculationPageLink}
+    Wait Until Page Contains  ${ColumnCalculationPageText}
+    Scroll Element Into View  ${TableFooter}
+    ${NumberOfRows} =  Get Element Count  ${TableVisibleRows}
+    @{ProgressDataList} =  Create List
+    ${ExpectedSum} =  Format String  ${ColumnSum}  2
+    Read Data From Table  2   ${ProgressDataList}  true
+    ${ExpectedSum} =  Get Text  ${ExpectedSum}
+    ${ExpectedSum} =  Convert To Number  ${ExpectedSum}
+    FOR  ${Progress}  IN  @{ProgressDataList}
+        ${ActualSum} =  Evaluate  ${ActualSum}+${Progress}
+    END
+    ${ActualSum} =  Evaluate  ${ActualSum}/${NumberOfRows}
+    Should Be Equal  ${ExpectedSum}  ${ActualSum}
+
+Verify Sum Of The Rating
+    ${ExpectedSum} =  Format String  ${ColumnSum}  4
+    Read Data From Table  4   ${DataList}  true
+    ${ExpectedSum} =  Get Text  ${ExpectedSum}
+    ${ExpectedSum} =  Convert To Number  ${ExpectedSum}
+    FOR  ${Progress}  IN  @{DataList}
+        ${ActualSum} =  Evaluate  ${ActualSum}+${Progress}
+    END
+    ${NumberOfRows} =  Get Element Count  ${TableVisibleRows}
+    ${ActualSum} =  Evaluate  ${ActualSum}/${NumberOfRows}
+    Should Be Equal  ${ExpectedSum}  ${ActualSum}

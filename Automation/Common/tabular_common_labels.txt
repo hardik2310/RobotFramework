@@ -26,3 +26,6 @@ ${FilteringDataPageText} =  Filtering Data
 
 #TC-011
 ${NestedDataPageText} =  Tree Structure and Nested Data
+
+#TC-012
+${ColumnCalculationPageText} =  Column Calculations
