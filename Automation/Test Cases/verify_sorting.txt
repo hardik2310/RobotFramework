@@ -1,6 +1,6 @@
 *** Settings ***
 Resource  ../Common/tabular_resources.txt
-Force Tags  TC-007
+#Force Tags  TC-007
 Suite Setup  Open Browser And Redirect To Url
 Suite Teardown  Close Browser Window
 Test Teardown  Run Keyword If Test Failed  Log Browser State

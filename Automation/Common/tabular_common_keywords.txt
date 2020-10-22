@@ -3,13 +3,14 @@ Library  SeleniumLibrary
 
 *** Keywords ***
 Open Browser And Redirect To Url
-    ${DownloadDirectory} =  Set Variable  ${CURDIR}${/}..${/}Downloads
-    ${BrowserProfile} =  Create Profile  ${DownloadDirectory}  ${BROWSER}
-    Open Browser  url=about:blank  browser=${BROWSER}  ff_profile_dir=${BrowserProfile}
+#    ${DownloadDirectory}  Evaluate    'downloads_{dt.day}_{dt.month}_{dt.year}_{dt.hour}_{dt.minute}_{dt.second}.csv'.format(dt=datetime.datetime.now())    modules=datetime
+    ${DOWNLOADDIRECTORY} =  Normalize path  ${CURDIR}/../Downloads
+    Set Global Variable  ${DOWNLOADDIRECTORY}
+    ${BrowserProfile} =  Create Profile  ${DOWNLOADDIRECTORY}  ${BROWSER}
+    Open Browser  url=about:blank  browser=${BROWSER}  options=${BrowserProfile}
     Maximize Browser Window
     Go To  ${URL}
     Wait Until Page Contains Element  ${TabulatorImageLink}
-
 
 Close Browser Window
     Sleep  3

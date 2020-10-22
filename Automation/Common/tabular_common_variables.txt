@@ -1,6 +1,5 @@
 *** Variables ***
 # Common
-${BROWSER}  firefox
 ${URL}  http://tabulator.info/
 ${TabulatorImageLink}  css=h1 img[alt='Tabulator']
 ${TableHeaders}  xpath=//div[@class='tabulator-col tabulator-sortable']

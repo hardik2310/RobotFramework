@@ -1,5 +1,6 @@
+import os
+import shutil
 from datetime import datetime
-from selenium import webdriver
 
 
 def sort_dates_in_list(list_of_dates):
@@ -7,16 +8,22 @@ def sort_dates_in_list(list_of_dates):
 
 
 def create_profile(download_path, browser):
-    browser_profile = None
+    if os.path.isdir(download_path):
+        shutil.rmtree(download_path)
     if browser.lower() == 'ff' or browser.lower() == 'firefox':
-        browser_profile = webdriver.FirefoxProfile()
-        browser_profile.set_preference("browser.download.dir", download_path)
-        browser_profile.set_preference("browser.download.folderList", 2)
-        browser_profile.set_preference("browser.helperApps.neverAsk.openFile", False)
-        browser_profile.set_preference("browser.helperApps.neverAsk.openFile",
-                                       "application/pdf,text/plain,application/octet-stream,application/x-pdf,application/vnd.pdf,application/vnd.openxmlformats-officedocument.spreadsheethtml,text/csv,text/html,application/x-msexcel,application/excel,application/x-excel,application/vnd.ms-excel")
-        browser_profile.set_preference("browser.helperApps.neverAsk.saveToDisk",
-                                       "application/pdf,text/plain,application/octet-stream,application/x-pdf,application/vnd.pdf,application/vnd.openxmlformats-officedocument.spreadsheethtml,text/csv,text/html,application/x-msexcel,application/excel,application/x-excel,application/vnd.ms-excel")
-        browser_profile.set_preference("browser.helperApps.alwaysAsk.force", False)
-        browser_profile.update_preferences()
-    return browser_profile
+        from selenium.webdriver.firefox.options import Options
+        options = Options()
+        options.set_preference("browser.download.dir", download_path)
+        options.set_preference("browser.download.folderList", 2)
+        options.set_preference("browser.download.manager.showWhenStarting", False)
+        options.set_preference("browser.helperApps.neverAsk.openFile", True)
+        options.set_preference("browser.helperApps.neverAsk.saveToDisk", "text/csv")
+        return options
+    elif browser.lower() == 'chrome' or browser.lower() == 'googlechrome':
+        from selenium.webdriver.chrome.options import Options
+        options = Options()
+        options.add_experimental_option("prefs", {
+            "download.default_directory": download_path,
+            "download.prompt_for_download": False,
+        })
+        return options

@@ -1,4 +1,7 @@
 *** Variables ***
+#Common
+${DOWNLOADDIRECTORY}
+${BROWSER}  chrome
 
 #TC-002
 ${RatingColumnNotVisible}  display: none;
