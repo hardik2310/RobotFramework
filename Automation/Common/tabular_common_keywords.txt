@@ -3,8 +3,8 @@ Library  SeleniumLibrary
 
 *** Keywords ***
 Open Browser And Redirect To Url
-#    ${DownloadDirectory}  Evaluate    'downloads_{dt.day}_{dt.month}_{dt.year}_{dt.hour}_{dt.minute}_{dt.second}.csv'.format(dt=datetime.datetime.now())    modules=datetime
-    ${DOWNLOADDIRECTORY} =  Normalize path  ${CURDIR}/../Downloads
+    ${DownloadDirectory}  Evaluate    '/Downloads/downloads_{dt.day}_{dt.month}_{dt.year}_{dt.hour}_{dt.minute}_{dt.second}'.format(dt=datetime.datetime.now())    modules=datetime
+    ${DOWNLOADDIRECTORY} =  Normalize path  ${CURDIR}/..${DownloadDirectory}
     Set Global Variable  ${DOWNLOADDIRECTORY}
     ${BrowserProfile} =  Create Profile  ${DOWNLOADDIRECTORY}  ${BROWSER}
     Open Browser  url=about:blank  browser=${BROWSER}  options=${BrowserProfile}

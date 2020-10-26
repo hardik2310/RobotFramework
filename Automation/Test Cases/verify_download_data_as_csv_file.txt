@@ -5,8 +5,11 @@ Suite Setup  Open Browser And Redirect To Url
 Suite Teardown  Close Browser Window
 Test Teardown  Run Keyword If Test Failed  Log Browser State
 # Author: Hardik.gosai
+
 *** Variables ***
 ${DownloadedDirectory}
+${FILEPATH}
+
 *** Test Cases ***
 Click On Download Data As CSV Button And Download File
     Wait Until Page Contains Element  ${DownloadButton}
@@ -14,8 +17,15 @@ Click On Download Data As CSV Button And Download File
 
 Verify File Is Downloaded
     ${files} =  List Files In Directory  ${DOWNLOADDIRECTORY}
-    Length Should Be  ${files}    1    Should be only one file in the download folder
+    Length Should Be  ${files}  1    Should be only one file in the download folder
     Should Not Match Regexp  ${files[0]}    (?i).*\\.tmp  still downloading a file
-    ${file}  Join Path    ${DOWNLOADDIRECTORY}    ${files[0]}
-    Log  File was successfully downloaded to ${file}
+    ${FILEPATH}  Join Path  ${DOWNLOADDIRECTORY}  ${files[0]}
+    Set Global Variable   ${FILEPATH}
+    Log  File was successfully downloaded to ${FILEPATH}
 
+Read File Content
+    ${contents} =  Get File  ${FILEPATH}
+    @{Rows} =  Split to lines  ${contents}
+    FOR  ${Row}  IN  @{Rows}
+        Log  ${Row}
+    END

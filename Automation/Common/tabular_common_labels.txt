@@ -1,7 +1,8 @@
 *** Variables ***
 #Common
 ${DOWNLOADDIRECTORY}
-${BROWSER}  chrome
+${BROWSER}  ff
+${TIMEOUT}  3s
 
 #TC-002
 ${RatingColumnNotVisible}  display: none;

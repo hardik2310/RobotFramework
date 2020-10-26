@@ -8,8 +8,6 @@ def sort_dates_in_list(list_of_dates):
 
 
 def create_profile(download_path, browser):
-    if os.path.isdir(download_path):
-        shutil.rmtree(download_path)
     if browser.lower() == 'ff' or browser.lower() == 'firefox':
         from selenium.webdriver.firefox.options import Options
         options = Options()
